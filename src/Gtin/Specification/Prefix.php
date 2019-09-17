@@ -202,7 +202,6 @@ final class Prefix implements Gtin\Specification
         return array_merge($list, self::GS1_COUNTRY_PREFIXES, $this->customPrefixes);
     }
 
-
     /**
      * @param array $prefixes
      *
