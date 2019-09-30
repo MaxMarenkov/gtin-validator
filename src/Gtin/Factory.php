@@ -9,7 +9,6 @@ final class Factory
 {
     /**
      * @param string $value
-     * @param array $customPrefixes
      *
      * @return Gtin
      */
