@@ -37,13 +37,17 @@ class Gtin8Test extends TestCase implements GtinTest
 
     /**
      * @dataProvider invalidProvider
+     *
+     * @param string $value
+     * @param int $reasonCode
      */
-    public function testValueIsNonNormalizable(string $value, int $reasonCode)
+    public function testValueIsNonNormalizable(string $value, int $reasonCode): void
     {
         $this->expectException(Gtin\NonNormalizable::class);
         $this->expectExceptionCode($reasonCode);
 
-        new Gtin\Gtin8($value);
+        $gtin = new Gtin\Gtin8($value);
+        $gtin->validate();
     }
 
 
@@ -57,6 +61,8 @@ class Gtin8Test extends TestCase implements GtinTest
 
     /**
      * @dataProvider validProvider
+     *
+     * @param string $value
      */
     public function testGtinInterfaceIsInherited(string $value)
     {

@@ -26,13 +26,17 @@ class Gtin14Test extends TestCase implements GtinTest
 
     /**
      * @dataProvider invalidProvider
+     *
+     * @param string $value
+     * @param int $reasonCode
      */
-    public function testValueIsNonNormalizable(string $value, int $reasonCode)
+    public function testValueIsNonNormalizable(string $value, int $reasonCode): void
     {
         $this->expectException(Gtin\NonNormalizable::class);
         $this->expectExceptionCode($reasonCode);
 
-        new Gtin\Gtin14($value);
+        $gtin = new Gtin\Gtin14($value);
+        $gtin->validate();
     }
 
 

@@ -8,6 +8,9 @@ use Real\Validator\Gtin;
 
 class FactoryTest extends TestCase
 {
+    /**
+     * @return array
+     */
     public function validValueProvider(): array
     {
         return [
@@ -42,6 +45,9 @@ class FactoryTest extends TestCase
         self::assertInstanceOf($fqcn, $gtin);
     }
 
+    /**
+     * @return array
+     */
     public function invalidValueProvider(): array
     {
         return [
@@ -60,12 +66,60 @@ class FactoryTest extends TestCase
 
     /**
      * @dataProvider invalidValueProvider
+     *
+     * @param string $value
+     * @param int $reasonCode
      */
     public function testExceptionIsThrown(string $value, int $reasonCode)
     {
         $this->expectException(Gtin\NonNormalizable::class);
         $this->expectExceptionCode($reasonCode);
 
-        Gtin\Factory::create($value);
+        $gtin = Gtin\Factory::create($value);
+        $gtin->validate();
+    }
+
+    /**
+     * @return array
+     */
+    public function customPrefixProvider(): array
+    {
+        return [
+            ['000073127727', [], true],
+            ['0000073127727', [], true],
+            ['614141991', [], true],
+            ['2388060103489', ['238'], true],
+            ['02388060103489', ['238'], true],
+            ['2388060103489', ['237'], false],
+            ['02500623901039', [['250', '250']], true],
+            ['2500623901039', [['250', '270']], true],
+            ['2500623901039', [['240', '270']], true],
+            ['2500623901039', [['240', '240'], ['241', '250']], true],
+            ['2500623901039', ['240', ['241', '250']], true],
+            ['2500623901039', ['250'], true],
+            ['2500623901039', ['244', '250'], true],
+            ['02500623901039', [], false],
+            ['2500623901039', [], false],
+            ['2500623901039', ['555'], false],
+        ];
+    }
+
+    /**
+     * @dataProvider customPrefixProvider
+     *
+     * @param string $value
+     * @param array $customPrefix
+     * @param bool $success
+     */
+    public function testCustomPrefix(string $value, array $customPrefix, bool $success): void
+    {
+        try {
+            $gtin = Gtin\Factory::create($value);
+            $gtin->validate($customPrefix);
+
+            $this->assertTrue($success);
+        } catch (Gtin\NonNormalizable $e) {
+            $this->assertFalse($success);
+        }
     }
 }

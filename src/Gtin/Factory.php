@@ -8,7 +8,9 @@ use Real\Validator\Gtin;
 final class Factory
 {
     /**
-     * @throws NonNormalizable
+     * @param string $value
+     *
+     * @return Gtin
      */
     public static function create(string $value): Gtin
     {

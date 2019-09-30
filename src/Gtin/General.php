@@ -11,26 +11,32 @@ abstract class General implements Validator\Gtin
     private $origin;
 
     /**
-     * @throws NonNormalizable
+     * @param string $value
      */
     final public function __construct(string $value)
     {
         $this->origin = $value;
-
-        $this->satisfyBy(new Specification\Digits);
-        $this->satisfyBy(new Specification\Length);
-        $this->satisfyBy(new Specification\CheckSum);
-        $this->satisfyBy(new Specification\Prefix);
     }
 
     /**
-     * @throws NonNormalizable
+     * @param Specification $specification
      */
     private function satisfyBy(Specification $specification): void
     {
         if (!$specification->isSatisfied($this)) {
             throw new NonNormalizable($this->origin, $specification);
         }
+    }
+
+    /**
+     * @param array $customPrefixes
+     */
+    public function validate(array $customPrefixes = []): void
+    {
+        $this->satisfyBy(new Specification\Digits);
+        $this->satisfyBy(new Specification\Length);
+        $this->satisfyBy(new Specification\CheckSum);
+        $this->satisfyBy(new Specification\Prefix($customPrefixes));
     }
 
     /**
