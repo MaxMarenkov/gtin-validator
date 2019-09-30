@@ -84,4 +84,11 @@ interface Gtin
      * of GTINs allocated to a particular GS1 Member Organization
      */
     public function prefix(): string;
+
+    /**
+     * Validate a GTIN
+     *
+     * @param array $customPrefixes
+     */
+    public function validate(array $customPrefixes = []): void;
 }

@@ -8,6 +8,9 @@ use Real\Validator\Gtin;
 
 class FactoryTest extends TestCase
 {
+    /**
+     * @return array
+     */
     public function validValueProvider(): array
     {
         return [
@@ -42,6 +45,9 @@ class FactoryTest extends TestCase
         self::assertInstanceOf($fqcn, $gtin);
     }
 
+    /**
+     * @return array
+     */
     public function invalidValueProvider(): array
     {
         return [
@@ -60,13 +66,17 @@ class FactoryTest extends TestCase
 
     /**
      * @dataProvider invalidValueProvider
+     *
+     * @param string $value
+     * @param int $reasonCode
      */
     public function testExceptionIsThrown(string $value, int $reasonCode)
     {
         $this->expectException(Gtin\NonNormalizable::class);
         $this->expectExceptionCode($reasonCode);
 
-        Gtin\Factory::create($value);
+        $gtin = Gtin\Factory::create($value);
+        $gtin->validate();
     }
 
     /**
@@ -104,7 +114,8 @@ class FactoryTest extends TestCase
     public function testCustomPrefix(string $value, array $customPrefix, bool $success): void
     {
         try {
-            Gtin\Factory::create($value, $customPrefix);
+            $gtin = Gtin\Factory::create($value);
+            $gtin->validate($customPrefix);
 
             $this->assertTrue($success);
         } catch (Gtin\NonNormalizable $e) {

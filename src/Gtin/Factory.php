@@ -13,19 +13,19 @@ final class Factory
      *
      * @return Gtin
      */
-    public static function create(string $value, array $customPrefixes = []): Gtin
+    public static function create(string $value): Gtin
     {
         $length = new Specification\Length();
 
         switch ($length->calculate($value)) {
             case 8:
-                return new Gtin8($value, $customPrefixes);
+                return new Gtin8($value);
             case 12:
-                return new Gtin12($value, $customPrefixes);
+                return new Gtin12($value);
             case 13:
-                return new Gtin13($value, $customPrefixes);
+                return new Gtin13($value);
             case 14:
-                return new Gtin14($value, $customPrefixes);
+                return new Gtin14($value);
             default:
                 throw new NonNormalizable($value, $length);
         }
