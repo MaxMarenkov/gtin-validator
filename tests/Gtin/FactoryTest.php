@@ -164,7 +164,8 @@ class FactoryTest extends TestCase
     public function testCustomPrefix(string $value, array $customPrefix, bool $success): void
     {
         try {
-            Gtin\Factory::create($value, $customPrefix);
+            $gtin = Gtin\Factory::create($value);
+            $gtin->validate($customPrefix);
 
             $this->assertTrue($success);
         } catch (Gtin\NonNormalizable $e) {
