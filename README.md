@@ -15,13 +15,13 @@ or suspected of being invalid in some way.
 via Composer
 
 ``` bash
-$ composer require real-digital/gtin-validator
+$ composer require metro-markets/gtin-validator
 ```
 
 via GitHub
 
 ``` bash
-$ git clone https://github.com/real-digital/gtin-validator.git
+$ git clone https://github.com/metro-markets/gtin-validator.git
 ```
 
 ### Usage
