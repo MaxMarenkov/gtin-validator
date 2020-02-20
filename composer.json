@@ -1,6 +1,6 @@
 {
-    "name": "real-digital/gtin-validator",
-    "description": "Real GTIN Validator",
+    "name": "metro-markets/gtin-validator",
+    "description": "Fork of Real GTIN Validator",
     "keywords": [
         "GTIN",
         "EAN",
@@ -15,9 +15,8 @@
         }
     ],
     "support": {
-        "email": "opensource@real-digital.de",
-        "issues": "https://github.com/real-digital/gtin-validator/issues",
-        "source": "https://github.com/real-digital/gtin-validator"
+        "issues": "https://github.com/METRO-Markets/gtin-validator/issues",
+        "source": "https://github.com/METRO-Markets/gtin-validator"
     },
     "license": "Apache-2.0",
     "type": "library",
