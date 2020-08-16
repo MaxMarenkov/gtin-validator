@@ -52,7 +52,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testGtinInterfaceIsInherited(string $value)
+    public function testGtinInterfaceIsInherited(string $value): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -62,7 +62,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testLength(string $value)
+    public function testLength(string $value): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -72,7 +72,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testVariation(string $value)
+    public function testVariation(string $value): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -91,7 +91,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider indicatorProvider
      */
-    public function testIndicator(string $value, int $indicator)
+    public function testIndicator(string $value, int $indicator): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -101,7 +101,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testOrigin(string $value)
+    public function testOrigin(string $value): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -120,7 +120,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider keyProvider
      */
-    public function testKey(string $value, string $key)
+    public function testKey(string $value, string $key): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -140,7 +140,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider paddedProvider
      */
-    public function testPadded(string $value, string $padded)
+    public function testPadded(string $value, string $padded): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -159,7 +159,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider checkDigitProvider
      */
-    public function testCheckDigit(string $value, int $checkDigit)
+    public function testCheckDigit(string $value, int $checkDigit): void
     {
         $gtin = new Gtin\Gtin14($value);
 
@@ -178,7 +178,7 @@ class Gtin14Test extends TestCase implements GtinTest
     /**
      * @dataProvider prefixProvider
      */
-    public function testPrefix(string $value, string $prefix)
+    public function testPrefix(string $value, string $prefix): void
     {
         $gtin = new Gtin\Gtin14($value);
 

@@ -38,7 +38,7 @@ class FactoryTest extends TestCase
     /**
      * @dataProvider validValueProvider
      */
-    public function testSuccessfulCreation(string $value, string $fqcn)
+    public function testSuccessfulCreation(string $value, string $fqcn): void
     {
         $gtin = Gtin\Factory::create($value);
 
@@ -48,7 +48,7 @@ class FactoryTest extends TestCase
     /**
      * @dataProvider validValueProvider
      */
-    public function testIsValid(string $value)
+    public function testIsValid(string $value): void
     {
         self::assertTrue(Gtin\Factory::isValid($value));
     }
@@ -78,7 +78,7 @@ class FactoryTest extends TestCase
      * @param string $value
      * @param int $reasonCode
      */
-    public function testExceptionIsThrown(string $value, int $reasonCode)
+    public function testExceptionIsThrown(string $value, int $reasonCode): void
     {
         $this->expectException(Gtin\NonNormalizable::class);
         $this->expectExceptionCode($reasonCode);
@@ -134,7 +134,7 @@ class FactoryTest extends TestCase
     /**
      * @dataProvider invalidValueProvider
      */
-    public function testIsNotValid(string $value)
+    public function testIsNotValid(string $value): void
     {
         self::assertFalse(Gtin\Factory::isValid($value));
     }
