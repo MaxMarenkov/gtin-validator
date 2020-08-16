@@ -46,6 +46,14 @@ class FactoryTest extends TestCase
     }
 
     /**
+     * @dataProvider validValueProvider
+     */
+    public function testIsValid(string $value)
+    {
+        self::assertTrue(Gtin\Factory::isValid($value));
+    }
+
+    /**
      * @return array
      */
     public function invalidValueProvider(): array
@@ -121,5 +129,13 @@ class FactoryTest extends TestCase
         } catch (Gtin\NonNormalizable $e) {
             $this->assertFalse($success);
         }
+    }
+
+    /**
+     * @dataProvider invalidValueProvider
+     */
+    public function testIsNotValid(string $value)
+    {
+        self::assertFalse(Gtin\Factory::isValid($value));
     }
 }
