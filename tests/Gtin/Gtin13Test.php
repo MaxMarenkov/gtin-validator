@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Real\Validator\Tests\Gtin;
@@ -39,7 +40,6 @@ class Gtin13Test extends TestCase implements GtinTest
         $gtin = new Gtin\Gtin13($value);
         $gtin->validate();
     }
-
 
     public function validProvider(): array
     {
