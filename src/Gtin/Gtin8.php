@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Real\Validator\Gtin;
@@ -26,6 +27,6 @@ final class Gtin8 extends General
      */
     public function prefix(): string
     {
-        return substr($this->padded(), 6, 3);
+        return (string) substr($this->padded(), 6, 3);
     }
 }

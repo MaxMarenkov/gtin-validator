@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Real\Validator\Tests\Gtin;
@@ -8,19 +9,17 @@ use Real\Validator\Gtin;
 
 class NonNormalizableTest extends TestCase
 {
-    public function valueProvider(): array
+    public function valueProvider(): iterable
     {
-        return [
-            ['42'],
-            ["\n"],
-            [''],
-        ];
+        yield '42' => ['42'];
+        yield '\n' => ["\n"];
+        yield '' => [''];
     }
 
     /**
      * @dataProvider valueProvider
      */
-    public function testValue(string $value)
+    public function testValue(string $value): void
     {
         /** @var Gtin\Specification $specification */
         $specification = $this->createMock(Gtin\Specification::class);
@@ -30,7 +29,7 @@ class NonNormalizableTest extends TestCase
         self::assertSame($value, $exception->value());
     }
 
-    public function testExceptionExtendsTheBasicOne()
+    public function testExceptionExtendsTheBasicOne(): void
     {
         /** @var Gtin\Specification $specification */
         $specification = $this->createMock(Gtin\Specification::class);
@@ -39,7 +38,7 @@ class NonNormalizableTest extends TestCase
         self::assertInstanceOf(\InvalidArgumentException::class, $exception);
     }
 
-    public function testConstantValues()
+    public function testConstantValues(): void
     {
         self::assertSame(1000, Gtin\NonNormalizable::CODE_LENGTH_14);
         self::assertSame(1001, Gtin\NonNormalizable::CODE_LENGTH_8);

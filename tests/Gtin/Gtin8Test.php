@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Real\Validator\Tests\Gtin;
@@ -8,31 +9,19 @@ use Real\Validator\Gtin;
 
 class Gtin8Test extends TestCase implements GtinTest
 {
-    public function invalidProvider(): array
+    public function invalidProvider(): iterable
     {
-        return [
-            ['9638507', 1001],
-            ['96385075', 1004],
-            ['96385o74', 1003],
-            ['00385077', 1005],
-            ['00085076', 1005],
-            ['05385072', 1005],
-            ['00000000', 1005],
-            ['000000000', 1005],
-            ['0000000000', 1005],
-            ['00000000000', 1005],
-            ['000000000000', 1005],
-            ['0000000000000', 1005],
-            ['00000000000000', 1005],
-            ['123456789012345', 1000],
-            ['614141999996', 1002],
-            ['00614141999996', 1002],
-            ['4006381333931', 1002],
-            ['04006381333931', 1002],
-            ['04006381333931', 1002],
-            ['04006381333931', 1002],
-            ['10012345678902', 1002],
-        ];
+        yield '9638507' => ['9638507', 1001];
+        yield '96385075' => ['96385075', 1004];
+        yield '96385o74' => ['96385o74', 1003];
+        yield '14085079' => ['14085079', 1005];
+        yield '14000003' => ['14000003', 1005];
+        yield '123456789012345' => ['123456789012345', 1000];
+        yield '614141999996' => ['614141999996', 1002];
+        yield '00614141999996' => ['00614141999996', 1002];
+        yield '4006381333931' => ['4006381333931', 1002];
+        yield '04006381333931' => ['04006381333931', 1002];
+        yield '10012345678902' => ['10012345678902', 1002];
     }
 
     /**
@@ -50,13 +39,10 @@ class Gtin8Test extends TestCase implements GtinTest
         $gtin->validate();
     }
 
-
-    public function validProvider(): array
+    public function validProvider(): iterable
     {
-        return [
-            ['96385074'],
-            ['73127727'],
-        ];
+        yield '96385074' => ['96385074'];
+        yield '73127727' => ['73127727'];
     }
 
     /**
@@ -64,7 +50,7 @@ class Gtin8Test extends TestCase implements GtinTest
      *
      * @param string $value
      */
-    public function testGtinInterfaceIsInherited(string $value)
+    public function testGtinInterfaceIsInherited(string $value): void
     {
         $gtin = new Gtin\Gtin8($value);
 
@@ -74,7 +60,7 @@ class Gtin8Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testLength(string $value)
+    public function testLength(string $value): void
     {
         $gtin = new Gtin\Gtin8($value);
 
@@ -84,7 +70,7 @@ class Gtin8Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testVariation(string $value)
+    public function testVariation(string $value): void
     {
         $gtin = new Gtin\Gtin8($value);
 
@@ -94,7 +80,7 @@ class Gtin8Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testIndicator(string $value, int $indicator = 0)
+    public function testIndicator(string $value, int $indicator = 0): void
     {
         $gtin = new Gtin\Gtin8($value);
 
@@ -104,30 +90,28 @@ class Gtin8Test extends TestCase implements GtinTest
     /**
      * @dataProvider validProvider
      */
-    public function testOrigin(string $value)
+    public function testOrigin(string $value): void
     {
         $gtin = new Gtin\Gtin8($value);
 
         self::assertSame($value, $gtin->origin());
     }
 
-    public function keyProvider(): array
+    public function keyProvider(): iterable
     {
-        return [
-            ['96385074', '96385074'],
-            ['096385074', '96385074'],
-            ['0096385074', '96385074'],
-            ['00096385074', '96385074'],
-            ['000096385074', '96385074'],
-            ['0000096385074', '96385074'],
-            ['00000096385074', '96385074'],
-        ];
+        yield '96385074' => ['96385074', '96385074'];
+        yield '096385074' => ['096385074', '96385074'];
+        yield '0096385074' => ['0096385074', '96385074'];
+        yield '00096385074' => ['00096385074', '96385074'];
+        yield '000096385074' => ['000096385074', '96385074'];
+        yield '0000096385074' => ['0000096385074', '96385074'];
+        yield '00000096385074' => ['00000096385074', '96385074'];
     }
 
     /**
      * @dataProvider keyProvider
      */
-    public function testKey(string $value, string $key)
+    public function testKey(string $value, string $key): void
     {
         $gtin = new Gtin\Gtin8($value);
 
@@ -135,54 +119,48 @@ class Gtin8Test extends TestCase implements GtinTest
         self::assertSame(8, strlen($gtin->key()));
     }
 
-    public function paddedProvider(): array
+    public function paddedProvider(): iterable
     {
-        return [
-            ['96385074', '00000096385074'],
-            ['73127727', '00000073127727'],
-        ];
+        yield '96385074' => ['96385074', '00000096385074'];
+        yield '73127727' => ['73127727', '00000073127727'];
     }
 
     /**
      * @dataProvider paddedProvider
      */
-    public function testPadded(string $value, string $padded)
+    public function testPadded(string $value, string $padded): void
     {
         $gtin = new Gtin\Gtin8($value);
 
         self::assertSame($padded, $gtin->padded());
     }
 
-    public function checkDigitProvider(): array
+    public function checkDigitProvider(): iterable
     {
-        return [
-            ['96385074', 4],
-            ['73127727', 7],
-        ];
+        yield '96385074' => ['96385074', 4];
+        yield '73127727' => ['73127727', 7];
     }
 
     /**
      * @dataProvider checkDigitProvider
      */
-    public function testCheckDigit(string $value, int $checkDigit)
+    public function testCheckDigit(string $value, int $checkDigit): void
     {
         $gtin = new Gtin\Gtin8($value);
 
         self::assertSame($checkDigit, $gtin->checkDigit());
     }
 
-    public function prefixProvider(): array
+    public function prefixProvider(): iterable
     {
-        return [
-            ['96385074', '963'],
-            ['73127727', '731'],
-        ];
+        yield '96385074' => ['96385074', '963'];
+        yield '73127727' => ['73127727', '731'];
     }
 
     /**
      * @dataProvider prefixProvider
      */
-    public function testPrefix(string $value, string $prefix)
+    public function testPrefix(string $value, string $prefix): void
     {
         $gtin = new Gtin\Gtin8($value);
 
